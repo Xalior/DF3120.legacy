@@ -1,0 +1,3 @@
+cp minifs/conf/packages/10common_base.sh .
+cat 10common_base.sh | sed "s|http://www.zlib.net/zlib-1.2.5.tar.gz|http://www.zlib.net/zlib-1.2.6.tar.gz|g" > minifs/conf/packages/10common_base.sh
+rm 10common_base.sh
