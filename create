@@ -6,7 +6,18 @@ echo
 echo     Package Installation
 echo 
 sudo apt-get install libelf-dev libncurses-dev git lzop uboot-mkimage libelf-dev libncurses-dev checkinstall build-essential subversion-tools cvs genext2fs gawk bison flex libglib2.0-dev texi2html texinfo automake libtool curl gtk-doc-tools expat libtool automake autoconf
+echo Stage 2
+echo =======
+echo
+echo     Cloning upstream minifs mini distro-maker
+echo
 git clone http://oomz.net/git/minifs.git minifs
+echo Stage 3
+echo =======
+echo
+echo     Applying patches and fixes
+echo
+
 for fix in fix/*
 do
 	echo Running $fix
