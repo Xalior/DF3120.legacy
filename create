@@ -1,0 +1,12 @@
+#!/bin/sh
+
+echo Stage 1
+echo =======
+echo 
+echo     Package Installation
+echo 
+sudo apt-get install libelf-dev libncurses-dev git lzop uboot-mkimage libelf-dev libncurses-dev checkinstall build-essential subversion-tools cvs genext2fs gawk bison flex libglib2.0-dev texi2html texinfo automake libtool curl gtk-doc-tools expat libtool automake autoconf
+git clone http://oomz.net/git/minifs.git minifs
+cd minifs
+export MINIFS_BOARD=df3120
+./minifs_build.sh
