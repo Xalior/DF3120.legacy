@@ -117,8 +117,11 @@ deploy-filesystem-ext() {
 	local out="$BUILD"/minifs-full-ext.img
 	echo -n "     Building $out "
 	local basesize=$(du -s "$ROOTFS"|awk '{print $1;}')
-	#local size=${TARGET_FS_EXT_SIZE:-8192}
-	local size=$(((($basesize*3)/2)&~512))
+# make filesystem at predefined size, minus 8K for bootsector
+	local size=${TARGET_FS_EXT_SIZE:-8192}
+# automake filesystem 1/3 larger than needs to be
+	#local size=$(((($basesize*3)/2)&~512))
+
 	if (($size < 4096)); then size=4096; fi
 	echo -n "$basesize/$size "
 	if genext2fs -d "$ROOTFS" \
