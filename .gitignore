@@ -1,1 +1,5 @@
-minifs
+download
+build-*
+toolchain
+._*
+.DS_Store
