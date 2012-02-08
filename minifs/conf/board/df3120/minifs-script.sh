@@ -9,8 +9,12 @@ board_set_versions() {
 	TARGET_FS_SQUASH=0
 	TARGET_INITRD=0
 	TARGET_SHARED=1
-	TARGET_FS_EXT_SIZE=16384
-
+# Pick a size, any size.
+#   16384   :   16M
+#   32768   :   32M
+	TARGET_FS_EXT_SIZE=64512
+#   DEFAULT IS 63M - for crappy cards.
+#       size is in BYTES, btw :)
 	hset uboot url "git!git://repo.or.cz/u-boot-openmoko/parrot-frames.git#uboot-df3120-git.tar.bz2"
 }
 
