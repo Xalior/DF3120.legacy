@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Xvnc :99 -ac -geometry 320x240 -depth 16 -AlwaysShared -SecurityTypes None
-
 . "$CONF_BASE"/arch/armv4t.sh
 
 board_set_versions() {
