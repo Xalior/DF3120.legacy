@@ -1,26 +1,4 @@
 
-PACKAGES+=" fbvncslave"
-hset fbvncslave url "none"
-hset fbvncslave dir "."
-hset fbvncslave depends "libvncserver"
-
-configure-fbvncslave() {
-	configure echo Done
-}
-compile-fbvncslave() {
-	compile echo Done
-}
-install-fbvncslave() {
-	log_install $GCC $CPPFLAGS $CFLAGS -std=gnu99  \
-		-Wall \
-		"$CONFIG"/fbvncslave.c \
-		-o "$STAGING_USR"/bin/fbvncslave $LDFLAGS_RLINK \
-		-lvncclient -ljpeg -lz
-}
-deploy-fbvncslave() {
-	deploy cp "$STAGING_USR"/bin/fbvncslave "$ROOTFS"/usr/bin/
-}
-
 PACKAGES+=" plftool"
 hset plftool url "git!http://oomz.net/git/df3120/plftool.git#plftool-df3120-git.tar.bz2"
 hset plftool depends "uboot"

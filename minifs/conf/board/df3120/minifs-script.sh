@@ -19,12 +19,11 @@ board_set_versions() {
 }
 
 board_prepare() {
-	TARGET_PACKAGES+=" strace gdbserver libvncserver picocom uboot"
+	TARGET_PACKAGES+=" strace gdbserver picocom uboot"
 	TARGET_PACKAGES+=" bluez cwiid libsdl"
 	TARGET_PACKAGES+=" sdlplasma sdlvoxel"
 	TARGET_PACKAGES+=" kobodeluxe"
 	TARGET_PACKAGES+=" sdldoom"
-	TARGET_PACKAGES+=" fbvncslave"
 	TARGET_PACKAGES+=" plftool"
 	hset dbus deploy false
 }
