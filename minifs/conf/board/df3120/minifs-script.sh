@@ -22,6 +22,7 @@ board_prepare() {
 	TARGET_PACKAGES+=" sdlplasma sdlvoxel"
 	TARGET_PACKAGES+=" kobodeluxe"
 	TARGET_PACKAGES+=" sdldoom"
+	TARGET_PACKAGES+=" dispwrite"
 	TARGET_PACKAGES+=" plftool"
 	hset dbus deploy false
 }

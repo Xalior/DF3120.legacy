@@ -1,3 +1,23 @@
+echo "EXTRAS"
+
+PACKAGES+=" dispwrite"
+hset dispwrite url "none"
+hset dispwrite dir /../../apps/dispwrite
+
+configure-dispwrite() {
+	configure echo Done
+}
+compile-dispwrite() {
+	compile make
+	compile echo Done
+}
+install-dispwrite() {
+	compile make
+	log_install cp dispwrite "$STAGING_USR"/bin/dispwrite
+}
+deploy-dispwrite() {
+	deploy cp "$STAGING_USR"/bin/dispwrite "$ROOTFS"/usr/bin/
+}
 
 PACKAGES+=" plftool"
 hset plftool url "git!http://oomz.net/git/df3120/plftool.git#plftool-df3120-git.tar.bz2"

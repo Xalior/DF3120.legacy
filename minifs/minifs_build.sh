@@ -78,7 +78,7 @@ GCC="${CROSS}-gcc"
 
 WGET=wget
 MAKE=make
-MAKE_ARGUMENTS="-j10"
+MAKE_ARGUMENTS="-j5"
 CROSSTOOL_JOBS=".8"
 
 mkdir -p "$STAGING_TOOLS"/bin
@@ -261,9 +261,7 @@ for package in $TARGET_PACKAGES; do
 	# to the list of the ones we want to build
 	targets=$(hget $package targets)
 	BUILD_PACKAGES+=" ${targets:-$package}"
-	
 	if [ "$fil" = "none" ]; then  continue ; fi
-	
 	proto=${fil/!*}
 	fil=${fil/*!}
 	base=${fil/*\//}
@@ -489,7 +487,6 @@ for pack in $PACKAGES; do
 	fi
 done
 
-#######################################################################
 ## Call the dependency sorter, and get back the result
 #######################################################################
 #echo DEPLIST $DEPLIST
@@ -518,7 +515,7 @@ process_one_package() {
 	done
 }
 
-for pack in $PROCESS_PACKAGES; do 	
+for pack in $PROCESS_PACKAGES; do
 	dir=$(hget $pack dir)
 	dir=${dir:-$pack}
 	# echo PACK $pack dir $dir
