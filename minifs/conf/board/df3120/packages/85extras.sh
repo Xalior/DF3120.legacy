@@ -1,4 +1,3 @@
-echo "EXTRAS"
 
 PACKAGES+=" dispwrite"
 hset dispwrite url "none"
