@@ -10,8 +10,10 @@ board_set_versions() {
 # Pick a size, any size.
 #   16384   :   16M
 #   32768   :   32M
-	TARGET_FS_EXT_SIZE=64512
-#   DEFAULT IS 63M - for crappy cards.
+#   DEFAULT IS 62M - for crappy cards.
+	TARGET_FS_EXT_SIZE=63488
+	TARGET_FS_EXT_SIZE=63488
+#   64512   :   63M
 #       size is in BYTES, btw :)
 	hset uboot url "git!git://repo.or.cz/u-boot-openmoko/parrot-frames.git#uboot-df3120-git.tar.bz2"
 }
@@ -24,6 +26,7 @@ board_prepare() {
 	TARGET_PACKAGES+=" sdldoom"
 	TARGET_PACKAGES+=" dispwrite"
 	TARGET_PACKAGES+=" plftool"
+	TARGET_PACKAGES+=" dropbear"
 	hset dbus deploy false
 }
 
