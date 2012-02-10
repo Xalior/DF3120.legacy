@@ -44,6 +44,7 @@ COMMAND_TARGET=${COMMAND_TARGET:-${COMMAND/*_}}
 echo MINIFS_BOARD $MINIFS_BOARD $COMMAND_TARGET $COMMAND_PACKAGE
 
 BASE="$(pwd)"
+
 export MINIFS_BASE="$BASE"
 
 NEEDED_HOST_COMMANDS="make tar rsync installwatch wget git"
@@ -518,7 +519,6 @@ process_one_package() {
 for pack in $PROCESS_PACKAGES; do
 	dir=$(hget $pack dir)
 	dir=${dir:-$pack}
-	# echo PACK $pack dir $dir
 	if [ -d "$BUILD/$dir" ]; then
 		package $pack $dir
 			phases=$(hget $pack phases)
