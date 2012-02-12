@@ -20,7 +20,7 @@
 set +o posix #needed for dashes in function names
 set -m # enable job control
 
-MINIFS_BOARD=df3120
+MINIFS_BOARD=${MINIFS_BOARD:df3120}
 
 MINIFS_BOARD_COMP=""
 for pd in $(echo "$MINIFS_BOARD"| tr "-" "\n") ; do
