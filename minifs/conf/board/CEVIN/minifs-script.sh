@@ -20,7 +20,7 @@ board_set_versions() {
 
 board_prepare() {
 	TARGET_PACKAGES+=" strace gdbserver picocom uboot"
-	TARGET_PACKAGES+=" bluez cwiid libsdl"
+	TARGET_PACKAGES+=" bluez"
 	TARGET_PACKAGES+=" dispwrite"
 	TARGET_PACKAGES+=" plftool"
 	hset dbus deploy false
