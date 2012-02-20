@@ -21,27 +21,24 @@ board_set_versions() {
 #   63488   :   62M
 #   64512   :   63M
 #       size is in BYTES, btw :)
-	hset uboot url "git!git://repo.or.cz/u-boot-openmoko/parrot-frames.git#uboot-df3120-git.tar.bz2"
+	hset uboot url "git!git://repo.or.cz/u-boot-openmoko/parrot-frames.git#uboot-cevin-git.tar.bz2"
 }
 
 board_prepare() {
 	TARGET_PACKAGES+=" strace gdbserver picocom uboot"
-	TARGET_PACKAGES+=" bluez cwiid libsdl"
-	TARGET_PACKAGES+=" sdlplasma sdlvoxel"
-	TARGET_PACKAGES+=" kobodeluxe"
-	TARGET_PACKAGES+=" sdldoom"
+	TARGET_PACKAGES+=" bluez sdlplasma"
 	TARGET_PACKAGES+=" dispwrite"
 	TARGET_PACKAGES+=" plftool"
 	TARGET_PACKAGES+=" dropbear"
 	hset dbus deploy false
 }
 
-df3120-deploy-linux-bare() {
+cevin-deploy-linux-bare() {
 	deploy-linux-bare
 	cp "$BUILD"/kernel.ub "$ROOTFS"/linux
 }
 
-df3120-deploy-uboot() {
+cevin-deploy-uboot() {
 	# make sure the u-boot is aligned on 512 blocks, for mtd_debug
 	deploy dd if=u-boot.bin of="$ROOTFS"/u-boot.bin bs=512 conv=sync
 }
