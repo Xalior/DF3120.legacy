@@ -1,4 +1,6 @@
-
+CFLAGS = -I../../minifs/build-df3120/staging/usr/include
+PNG_CFLAGS = -I../../minifs/build-df3120/staging/usr/include
+LDFLAGS = -L/u/GIT/CEVIN/DF3120/minifs/build-df3120/staging/usr/lib -lz -lpng14
 
 CC = arm-v4t-linux-uclibcgnueabi-gcc
 
@@ -9,17 +11,12 @@ CC = arm-v4t-linux-uclibcgnueabi-gcc
 all: disppic
 
 
-disppic: main.c font_5x8.h
-	$(CC) -static -o $@ main.c
-
-
-font_5x8.h: font_5x8.txt
-	./txt2header $< $@
+disppic: main.c 
+	$(CC) -o $@ main.c $(CFLAGS) $(PNG_CFLAGS) $(LDFLAGS)
 
 run:
-	./disppic Hello
-
+	./disppic TEST.png
 
 clean:
-	rm -f font.h disppic *~
+	rm -f disppic *~
 
