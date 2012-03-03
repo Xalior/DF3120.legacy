@@ -1,0 +1,8 @@
+#!/bin/bash
+
+export ENV_NAME=DF3120
+export MINIFS_BOARD=df3120
+
+MINIFS_ROOT=`pwd`/DF3120/minifs
+PATH=$MINIFS_ROOT/toolchain/arm-v4t-linux-uclibcgnueabi/bin:$PATH
+cd $MINIFS_ROOT/..
