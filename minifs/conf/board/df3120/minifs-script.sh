@@ -27,6 +27,7 @@ board_prepare() {
 	TARGET_PACKAGES+=" dispwrite"
 	TARGET_PACKAGES+=" plftool"
 	TARGET_PACKAGES+=" dropbear"
+	TARGET_PACKAGES+=" libpng"
 	hset dbus deploy false
 }
 
