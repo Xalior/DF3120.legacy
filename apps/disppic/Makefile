@@ -6,20 +6,20 @@ CC = arm-v4t-linux-uclibcgnueabi-gcc
 .PHONY: all clean
 
 
-all: dispwrite
+all: disppic
 
 
-dispwrite: main.c font.h
+disppic: main.c font_5x8.h
 	$(CC) -static -o $@ main.c
 
 
-font.h: font.txt
+font_5x8.h: font_5x8.txt
 	./txt2header $< $@
 
 run:
-	./dispwrite Hello
+	./disppic Hello
 
 
 clean:
-	rm -f font.h dispwrite *~
+	rm -f font.h disppic *~
 

@@ -12,10 +12,13 @@
 #include <linux/fb.h>
 #include <sys/mman.h>
 
+#define SCR_WIDTH  320
+#define SCR_HEIGHT 240
+
 #define CHAR_WIDTH 5
 #define CHAR_HEIGHT 8
 // set g_FontData
-#include "font.h"
+#include "font_5x8.h"
 
 
 void Help(const char* name)
@@ -91,28 +94,7 @@ void InitFrameBuffer(int max_x, int max_y)
     exit(1);
   }
   printf("mmap() OK\n");
-
-
 }
-
-
-
-// Print display Buffer
-void PrintBuffer()
-{
-  int x, y, count;
-  count = 0;
-  for (y = 0; y<MaxY; y++)
-  {
-    for (x = 0; x<MaxX; x++)
-    {
-      printf("%c", g_DisplayBuffer[count]);
-      count++;      
-    }
-    printf("\n");
-  }    
-}
-
 
 // X position
 int g_CursorX = 0;
@@ -203,7 +185,7 @@ void PutCharOnScreen(char ch)
 
 
 
-void PrintChars(const char* txt, int test)
+void PrintChars(const char* txt)
 {
 /*  int i;
   int colour;
@@ -217,15 +199,7 @@ void PrintChars(const char* txt, int test)
 */
   while (*txt)
   {
-    if (test)
-    {
-      AddChar(*txt);
-    } 
-    else 
-    {
-      PutCharOnScreen(*txt);
-    }
-    
+    PutCharOnScreen(*txt);
     txt++;
   }
   
@@ -235,26 +209,14 @@ void PrintChars(const char* txt, int test)
 
 int main(int argc, char* argv[])
 {
-  int test_font = 0;  // set to 1 to print on text console
   if (argc!=2)
   {
     Help(argv[0]);
   }
-  if (test_font)
-  {
-    InitBuffer(80, 30);
-  }
-  else
-  {
-    InitFrameBuffer(320, 200);
-  }
+  InitFrameBuffer(320, 200);
   
-  PrintChars(argv[1], test_font);
+  PrintChars(argv[1]);
   
-  if (test_font)
-  {
-    PrintBuffer();
-  }
   return 0;
 }
 
