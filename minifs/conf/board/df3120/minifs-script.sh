@@ -19,15 +19,17 @@ board_set_versions() {
 }
 
 board_prepare() {
+	TARGET_PACKAGES+=" plftool"
 	TARGET_PACKAGES+=" strace gdbserver picocom uboot"
 	TARGET_PACKAGES+=" bluez cwiid libsdl"
 	TARGET_PACKAGES+=" sdlplasma sdlvoxel"
 	TARGET_PACKAGES+=" kobodeluxe"
 	TARGET_PACKAGES+=" sdldoom"
-	TARGET_PACKAGES+=" dispwrite"
-	TARGET_PACKAGES+=" plftool"
 	TARGET_PACKAGES+=" dropbear"
-	TARGET_PACKAGES+=" libpng"
+	TARGET_PACKAGES+=" dispinfo"
+	TARGET_PACKAGES+=" disptest"
+	TARGET_PACKAGES+=" dispwrite"
+	TARGET_PACKAGES+=" disppic"
 	hset dbus deploy false
 }
 
