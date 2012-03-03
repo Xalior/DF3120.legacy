@@ -1,9 +1,3 @@
-/*
-  Quick and dirty way to write characters to the df3120 screen.
-
-  bifferos@yahoo.co.uk
-*/
-
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,22 +21,14 @@ void Help(const char* name)
   _exit(1);
 }
 
-
-// Something we can print
-static int MaxX;
-static int MaxY;
-
 char* g_DisplayBuffer;
 
 // Initialise and fill with something sensible
-void InitBuffer(int x, int y)
+void InitBuffer()
 {
-  MaxX = x;
-  MaxY = y;
-  g_DisplayBuffer = malloc(MaxX*MaxY);
-  memset((void*)g_DisplayBuffer, '.', MaxX*MaxY);
+  g_DisplayBuffer = malloc(SCR_WIDTH*SCR_HEIGHT);
+  memset((void*)g_DisplayBuffer, '.', SCR_WIDTH*SCR_HEIGHT);
 }
-
 
 // Backing file
 int g_fb = 0;
@@ -50,14 +36,12 @@ int g_fb = 0;
 // shared memory area
 char* g_Screen = NULL;
 
-void InitFrameBuffer(int max_x, int max_y)
+void InitFrameBuffer()
 {
   int bytes;
   struct fb_fix_screeninfo fixed_info;
   struct fb_var_screeninfo var_info;
   char* screen;
-  MaxX = max_x;
-  MaxY = max_y;
   g_fb = open("/dev/fb0", O_RDWR);
   if (g_fb == -1)
   {
@@ -81,8 +65,18 @@ void InitFrameBuffer(int max_x, int max_y)
   printf("xres: %d\n", var_info.xres);
   printf("yres: %d\n", var_info.yres);
   printf("bpp: %d\n", var_info.bits_per_pixel);
+  printf("height: %d\n", var_info.height);
+  printf("width: %d\n", var_info.width);
+  printf("red:\n");
+  printf("   length: %d\n", var_info.red.length);
+  printf("   offset: %d\n", var_info.red.offset);
+  printf("green:\n");
+  printf("   length: %d\n", var_info.green.length);
+  printf("   offset: %d\n", var_info.green.offset);
+  printf("blue:\n");
+  printf("   length: %d\n", var_info.blue.length);
+  printf("   offset: %d\n", var_info.blue.offset);
   bytes = var_info.xres * var_info.yres * var_info.bits_per_pixel /8;
-  
   printf("Screen buffer size is %d bytes\n", bytes);
 
   g_Screen = (char*)mmap(0, bytes, PROT_READ|PROT_WRITE, MAP_SHARED, g_fb, 0);
@@ -116,15 +110,15 @@ void AddChar(char ch)
   font_ptr += font_index;
   
   // blit it into position row at a time
-  buffer_ptr += (g_CursorX + MaxX*g_CursorY);
+  buffer_ptr += (g_CursorX + SCR_WIDTH*g_CursorY);
   for (y=0;y<CHAR_HEIGHT;y++)
   {
     memcpy(buffer_ptr, font_ptr, CHAR_WIDTH);
-    buffer_ptr += MaxX;
+    buffer_ptr += SCR_WIDTH;
     font_ptr += CHAR_WIDTH;
   }
   g_CursorX += CHAR_WIDTH+1;
-  if (g_CursorX >= (MaxX - CHAR_WIDTH+1))
+  if (g_CursorX >= (SCR_WIDTH - CHAR_WIDTH+1))
   {
     g_CursorX = 0;
     g_CursorY += CHAR_HEIGHT;
@@ -150,7 +144,7 @@ void PutCharOnScreen(char ch)
   font_ptr += font_index;
   
   // Move screen ptr to top-left of character
-  buffer_ptr += (g_CursorX + MaxX*g_CursorY);
+  buffer_ptr += (g_CursorX + SCR_WIDTH*g_CursorY);
   for (y=0;y<CHAR_HEIGHT;y++)
   {
     for (x=0;x<CHAR_WIDTH;x++)
@@ -164,16 +158,16 @@ void PutCharOnScreen(char ch)
       else
       {
         //printf("Writing white\n");
-        *buffer_ptr = 1000;
+        *buffer_ptr = 65535;
         buffer_ptr++;
       }
       font_ptr++;
     }
     buffer_ptr -= CHAR_WIDTH;
-    buffer_ptr += MaxX;  // onto the next line
+    buffer_ptr += SCR_WIDTH;  // onto the next line
   }
   g_CursorX += CHAR_WIDTH+1;
-  if (g_CursorX >= (MaxX - CHAR_WIDTH+1))
+  if (g_CursorX >= (SCR_WIDTH - CHAR_WIDTH+1))
   {
     g_CursorX = 0;
     g_CursorY += CHAR_HEIGHT;
