@@ -18,14 +18,15 @@ unsigned int mkPixel(int red, int green, int blue) {
 }
 
 /* alpha blend routine */
-int mkBlend(const unsigned int bg, const unsigned int fg, const int alpha)
+int mkBlend(char bg, char fg, int alpha)
 {
-    printf("Making a blend for %d.\n",alpha);
    /* If source pixel is transparent, just return the background */
    if (alpha == 0) 
       return bg;
 
-   printf("Making BLEND between %d and %d at %f.\n",bg,fg,(alpha/255));
+   float floatalpha;
+   floatalpha = alpha/255.0;
+
    /* alpha blending the source and background colors */
-   return (fg * (alpha/255) + (bg * (1 - (alpha/255))));
+   return (fg * floatalpha + (bg * (1 - floatalpha)));
 }

@@ -107,6 +107,10 @@ void read_png_file(char* file_name)
 	fclose(fp);
 }
 
+char extractBits(unsigned short byte, int startingPos, int offset) {
+   return (byte >> startingPos) & ((1 << offset)-1);
+}
+
 void process_file(void)
 {
     int image_type=0;
@@ -131,16 +135,9 @@ void process_file(void)
             }
             else 
             {
-                printf("BUFFER PTR: %d\n",*buffer_ptr);
-                //*buffer_ptr = mkPixel(mkBlend((()),ptr[0],ptr[3]),ptr[1],ptr[2]);
-                *buffer_ptr = mkPixel(mkBlend(((*buffer_ptr>>11)<<3),ptr[0],ptr[3]),
-                                      mkBlend((((*buffer_ptr<<5)>>10)<<2),ptr[1],ptr[3]),
-                                      mkBlend(((*buffer_ptr<<11)>>8),ptr[2],ptr[3]));
-                printf("Red 5BIT: %d\n",*buffer_ptr>>11);
-                printf("Red 8BIT: %d\n",((*buffer_ptr>>11)<<3));
-                printf("Green 6BIT: %d\n",((*buffer_ptr<<5)>>10));
-                printf("Green 8BIT: %d\n",(((*buffer_ptr<<5)>>10)<<2));
-                                     // mkBlend(((*buffer_ptr<<11)>>8),ptr[2],ptr[3]));
+                *buffer_ptr = mkPixel(mkBlend(((extractBits(*buffer_ptr,11,5))<<3),ptr[0],ptr[3]),
+                                      mkBlend(((extractBits(*buffer_ptr,5,6))<<2),ptr[1],ptr[3]),
+                                      mkBlend(((extractBits(*buffer_ptr,0,5))<<3),ptr[2],ptr[3]));
             }
 			buffer_ptr++;
 		}
