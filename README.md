@@ -13,7 +13,7 @@ Because when you can get an ARM powered picture frame that boots Linux with ZERO
 
 ### Build it
 
-	source ./DF3120/create
+	./create
 
 ### Use it
 
